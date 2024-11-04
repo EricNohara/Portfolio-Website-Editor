@@ -1,6 +1,6 @@
 import db from "../../lib/db";
 import { NextResponse } from "next/server";
-import { hashPassword, generateUniqueID } from "../../lib/bcrypt";
+import { hashPassword } from "../../lib/bcrypt";
 
 export async function POST(req: Request) {
   try {
@@ -16,19 +16,10 @@ export async function POST(req: Request) {
 
     const hashedPassword: string = await hashPassword(password);
 
-    // const id: string = generateUniqueID(10);
-
     // Initialize arrays to hold the columns and values
-    const columns: string[] = [
-      // "id",
-      "name",
-      "phone_number",
-      "email",
-      "password",
-    ];
+    const columns: string[] = ["name", "phone_number", "email", "password"];
 
     const values: (string | null)[] = [
-      // id,
       name,
       phone_number,
       email,

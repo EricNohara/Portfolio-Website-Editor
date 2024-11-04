@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Button, TextField } from "@mui/material";
 
 export default function CreateUserForm() {
   const [userData, setUserData] = useState({
@@ -47,53 +48,64 @@ export default function CreateUserForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
-      <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="phone_number"
-        placeholder="Phone Number"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="email"
+      <TextField
+        label="Email"
         name="email"
-        placeholder="Email"
         onChange={handleChange}
         required
+        fullWidth
+        margin="dense"
       />
-      <input
-        type="text"
-        name="location"
-        placeholder="Location"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="github_link"
-        placeholder="GitHub Link"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="linkedin_link"
-        placeholder="LinkedIn Link"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
+      <TextField
+        label="Password"
         name="password"
-        placeholder="Password"
         onChange={handleChange}
         required
+        fullWidth
+        margin="dense"
+        type="password"
       />
-      <button type="submit">Create User</button>
+      <TextField
+        label="Full Name"
+        name="name"
+        onChange={handleChange}
+        required
+        fullWidth
+        margin="dense"
+      />
+      <TextField
+        label="Phone number"
+        name="phone_number"
+        onChange={handleChange}
+        required
+        fullWidth
+        margin="dense"
+      />
+      <TextField
+        label="Address"
+        name="location"
+        onChange={handleChange}
+        fullWidth
+        margin="dense"
+      />
+      <TextField
+        label="GitHub Link"
+        name="github_link"
+        onChange={handleChange}
+        fullWidth
+        margin="dense"
+      />
+      <TextField
+        label="LinkedIn Link"
+        name="linkedin_link"
+        onChange={handleChange}
+        fullWidth
+        margin="dense"
+        className="mb-5"
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Create
+      </Button>
     </form>
   );
 }

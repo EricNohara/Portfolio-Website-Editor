@@ -1,8 +1,8 @@
-import CreateUserForm from "../components/create-user-form";
-import { Typography, Container } from "@mui/material";
+import LoginUserForm from "../components/login-user-form";
 import React from "react";
+import { Container, Typography } from "@mui/material";
 
-export default function CreateUserPage() {
+export default function LoginUserPage() {
   return (
     <Container maxWidth="sm">
       <Typography
@@ -11,9 +11,9 @@ export default function CreateUserPage() {
         gutterBottom
         className="mt-10 text-center"
       >
-        Create New User
+        Sign In
       </Typography>
-      <CreateUserForm />
+      <LoginUserForm />
     </Container>
   );
 }

@@ -12,11 +12,4 @@ async function verifyPassword(password: string, hashedPassword: string) {
   return match;
 }
 
-function generateUniqueID(length: number) {
-  const timestamp: string = Date.now().toString();
-  const randomSuffix: string = Math.floor(Math.random() * 1000000).toString();
-  const id = (timestamp + randomSuffix).substring(0, length);
-  return id;
-}
-
-export { hashPassword, verifyPassword, generateUniqueID };
+export { hashPassword, verifyPassword };
