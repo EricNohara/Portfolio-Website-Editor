@@ -21,7 +21,7 @@ export default function CreateSkillForm() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(skillName),
+        body: JSON.stringify({ skill: skillName }),
       });
 
       const data = await res.json();
