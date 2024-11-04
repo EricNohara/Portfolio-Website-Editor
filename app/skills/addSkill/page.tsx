@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import CreateSkillForm from "../components/create-skill-form";
+import CreateSkillForm from "../../components/create-skill-form";
 import React from "react";
 
 export default function AddSkillPage() {

@@ -1,8 +1,8 @@
-import LoginUserForm from "../components/login-user-form";
-import React from "react";
+import UserSkillsList from "../components/user-skills-list";
 import { Container, Typography } from "@mui/material";
+import React from "react";
 
-export default function LoginUserPage() {
+export default function DisplayAllSkillsPage() {
   return (
     <Container maxWidth="sm">
       <Typography
@@ -11,9 +11,9 @@ export default function LoginUserPage() {
         gutterBottom
         className="mt-10 text-center"
       >
-        Sign In
+        User Skills
       </Typography>
-      <LoginUserForm />
+      <UserSkillsList />
     </Container>
   );
 }

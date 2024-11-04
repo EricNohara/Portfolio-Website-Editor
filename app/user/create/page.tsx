@@ -1,4 +1,4 @@
-import CreateUserForm from "../components/create-user-form";
+import CreateUserForm from "../../components/create-user-form";
 import { Typography, Container } from "@mui/material";
 import React from "react";
 

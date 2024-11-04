@@ -15,7 +15,7 @@ export default function CreateSkillForm() {
     e.preventDefault();
     try {
       const token: string | null = localStorage.getItem("token");
-      const res: Response = await fetch("/api/addSkill", {
+      const res: Response = await fetch("/api/skill", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

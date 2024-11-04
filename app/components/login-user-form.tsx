@@ -30,7 +30,6 @@ export default function LoginUserForm() {
 
       if (res.ok) {
         localStorage.setItem("token", data.token); // save the token in local storage or cookies
-        // console.log(localStorage.getItem("token")); // this is how you can access the token from local storage
         alert("Logged in successfully");
       } else {
         alert(data.message);
@@ -57,6 +56,7 @@ export default function LoginUserForm() {
         required
         fullWidth
         margin="normal"
+        type="password"
       />
       <Button
         type="submit"
