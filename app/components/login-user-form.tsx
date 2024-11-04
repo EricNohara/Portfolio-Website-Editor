@@ -19,6 +19,25 @@ export default function LoginUserForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const res: Response = await fetch("/api/loginUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("token", data.token); // save the token in local storage or cookies
+        // console.log(localStorage.getItem("token")); // this is how you can access the token from local storage
+        alert("Logged in successfully");
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
