@@ -10,6 +10,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import styled from "styled-components";
+import { useRouter } from "next/navigation";
+
+const ListItemGrid = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 80% 10% 10%;
+  border-bottom: 2px solid black;
+  border-radius: 2px;
+  align-items: center;
+`;
 
 const getSkillsFetcher = async () => {
   try {
@@ -49,11 +61,7 @@ const deleteSkillFetcher = async (skillName: string) => {
 
     const data = await res.json();
 
-    if (!res.ok) {
-      alert(`Error: ${data.message}`);
-    } else {
-      alert(data.message);
-    }
+    if (!res.ok) alert(`Error: ${data.message}`);
   } catch (err) {
     console.error(err);
   }
@@ -61,6 +69,7 @@ const deleteSkillFetcher = async (skillName: string) => {
 
 export default function UserSkillsList() {
   const { data: skills, error } = useSWR("/api/skill", getSkillsFetcher);
+  const router = useRouter();
 
   if (error) return <div>Error: {error.message}</div>;
   if (!skills)
@@ -75,7 +84,7 @@ export default function UserSkillsList() {
       </Box>
     );
 
-  const handleDeleteSkill = async (skillName: string) => {
+  const handleDelete = async (skillName: string) => {
     try {
       await deleteSkillFetcher(skillName);
       mutate("/api/skill"); // used to update the fetched data by useSWR
@@ -84,21 +93,29 @@ export default function UserSkillsList() {
     }
   };
 
+  const handleEdit = (skill: string) => {
+    router.push(`/skills/editSkill/${skill}`); // Redirect to edit route
+  };
+
   return (
-    <List>
+    <List sx={{ bgcolor: "background.paper" }}>
       {skills.map((skill: string, index: number) => (
-        <ListItem key={index}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            width="100%"
-            alignItems="center"
-          >
+        <ListItem key={index} disablePadding>
+          <ListItemGrid>
             <ListItemText>{skill}</ListItemText>
-            <ListItemButton onClick={() => handleDeleteSkill(skill)}>
-              <DeleteIcon />
+            <ListItemButton
+              sx={{ justifySelf: "center" }}
+              onClick={() => handleEdit(skill)}
+            >
+              <EditRoundedIcon sx={{ color: "blue" }} />
             </ListItemButton>
-          </Box>
+            <ListItemButton
+              sx={{ justifySelf: "center" }}
+              onClick={() => handleDelete(skill)}
+            >
+              <DeleteIcon sx={{ color: "red" }} />
+            </ListItemButton>
+          </ListItemGrid>
         </ListItem>
       ))}
     </List>

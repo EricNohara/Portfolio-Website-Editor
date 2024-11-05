@@ -7,6 +7,7 @@ export async function DELETE(
   req: Request,
   { params }: { params: { skillName: string } }
 ) {
+  const resolvedParams = await params;
   const { decoded, error } = await verifyToken(req);
 
   if (error) {
@@ -20,7 +21,7 @@ export async function DELETE(
     "DELETE FROM UserSkill WHERE name = ? AND user_id = ?"
   );
 
-  const result = stmt.run(params.skillName, decoded.id);
+  const result = stmt.run(resolvedParams.skillName, decoded.id);
 
   if (result.changes === 0) {
     return NextResponse.json(
@@ -40,6 +41,7 @@ export async function PUT(
   req: Request,
   { params }: { params: { skillName: string } }
 ) {
+  const resolvedParams = await params;
   const { decoded, error } = await verifyToken(req);
 
   if (error) {
@@ -49,14 +51,37 @@ export async function PUT(
     );
   }
 
-  const { newSkill } = await req.json();
-  const stmt = db.prepare(
-    "UPDATE UserSkill SET skill = ? WHERE user_id = ? AND name = ?"
-  );
-  stmt.run(newSkill, decoded.id, params.skillName);
+  try {
+    const { skill } = await req.json();
 
-  return NextResponse.json(
-    { message: "Skill updated successfully" },
-    { status: 200 }
-  );
+    if (!skill) {
+      return NextResponse.json(
+        { message: "Skill is required." },
+        { status: 400 } // Bad Request if skill is missing
+      );
+    }
+
+    const stmt = db.prepare(
+      "UPDATE UserSkill SET name = ? WHERE user_id = ? AND name = ?"
+    );
+    const result = stmt.run(skill, decoded.id, resolvedParams.skillName);
+
+    if (result.changes === 0) {
+      return NextResponse.json(
+        { message: `No skill found with name "${resolvedParams.skillName}".` },
+        { status: 404 } // Not Found
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Skill updated successfully" },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { message: "Failed to update skill." },
+      { status: 500 } // Internal Server Error
+    );
+  }
 }
