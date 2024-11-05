@@ -1,6 +1,6 @@
-import db from "../../lib/db";
+import db from "../../../lib/db";
 import { NextResponse } from "next/server";
-import { hashPassword } from "../../lib/bcrypt";
+import { hashPassword } from "../../../lib/bcrypt";
 
 export async function POST(req: Request) {
   try {

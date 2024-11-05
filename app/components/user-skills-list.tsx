@@ -98,7 +98,7 @@ export default function UserSkillsList() {
   };
 
   return (
-    <List sx={{ bgcolor: "background.paper" }}>
+    <List>
       {skills.map((skill: string, index: number) => (
         <ListItem key={index} disablePadding>
           <ListItemGrid>

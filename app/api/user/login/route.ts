@@ -1,8 +1,8 @@
-import db from "../../lib/db";
+import db from "../../../lib/db";
 import { NextResponse } from "next/server";
-import { verifyPassword } from "../../lib/bcrypt";
-import { generateToken } from "../../lib/jwt";
-import UserSchema from "../../interfaces/UserSchema";
+import { verifyPassword } from "../../../lib/bcrypt";
+import { generateToken } from "../../../lib/jwt";
+import UserSchema from "../../../interfaces/UserSchema";
 
 export async function POST(req: Request) {
   try {

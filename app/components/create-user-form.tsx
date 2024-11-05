@@ -25,7 +25,7 @@ export default function CreateUserForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res: Response = await fetch("/api/createUser", {
+      const res: Response = await fetch("/api/user/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
